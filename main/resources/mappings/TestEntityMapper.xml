@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TestEntityMapper">
+  <resultMap id="BaseResultMap" type="gduccc.web.entity.TestEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, code
+  </sql>
+  <select id="GetById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from test_entity
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from test_entity
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="gduccc.web.entity.TestEntity">
+    insert into test_entity (
+		<include refid="Base_Column_List" />
+    )
+    values (
+	    #{id,jdbcType=VARCHAR}, 
+	    #{name,jdbcType=VARCHAR},
+	    #{code,jdbcType=VARCHAR}
+    )
+  </insert>
+  <!-- <insert id="insertSelective" parameterType="wo.hut.call.entity.Demo">
+    insert into test
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="t1 != null">
+        t1,
+      </if>
+      <if test="t2 != null">
+        t2,
+      </if>
+      <if test="t3 != null">
+        t3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="t1 != null">
+        #{t1,jdbcType=VARCHAR},
+      </if>
+      <if test="t2 != null">
+        #{t2,jdbcType=VARCHAR},
+      </if>
+      <if test="t3 != null">
+        #{t3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="wo.hut.call.entity.Demo">
+    update test
+    <set>
+      <if test="t1 != null">
+        t1 = #{t1,jdbcType=VARCHAR},
+      </if>
+      <if test="t2 != null">
+        t2 = #{t2,jdbcType=VARCHAR},
+      </if>
+      <if test="t3 != null">
+        t3 = #{t3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   -->
+  <update id="Update" parameterType="gduccc.web.entity.TestEntity">
+    update test_entity
+    set name = #{name,jdbcType=VARCHAR},code = #{code,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

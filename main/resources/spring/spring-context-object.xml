@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+             http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+       default-lazy-init="true">
+    <description>使用spring配置的对象</description>
+
+	<bean id="commandExecutor" class="gduccc.command.CommandExecutor">
+		<property name="componentScan" value="gduccc.web.action"></property>
+		<property name="interceptors">
+			<list>
+				<bean class="gduccc.web.interceptor.SessionBindInterceptor">
+					<property name="incluedCommands">
+						<set>
+							<value>DemoAction</value>
+						</set>
+					</property>
+					<property name="excludeCommands">
+						<set>
+							<value></value>
+						</set>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
+</beans>

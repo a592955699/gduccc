@@ -9,10 +9,10 @@ public abstract class AuthorityInterceptor extends CommandFilterInterceptor{
 	protected abstract Boolean IsAuthoritied(ActionInvocation invocation);
 
 	@Override
-	public void Intercept(ActionInvocation invocation) throws InstantiationException, IllegalAccessException {
+	public void intercept(ActionInvocation invocation){
 		 if (IsAuthoritied(invocation))
          {
-             invocation.Invoke();
+             invocation.invoke();
          }
          else
          { 

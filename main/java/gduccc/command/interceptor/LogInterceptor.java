@@ -1,33 +1,39 @@
 package gduccc.command.interceptor;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import gduccc.command.ActionInvocation;
+import gduccc.command.log.LoggerImpl;
 import gduccc.command.utils.*;
 import gduccc.command.model.Response;
 
-public abstract class LogInterceptor extends CommandFilterInterceptor{
+public class LogInterceptor extends CommandFilterInterceptor{
 
+	@Autowired
+	private LoggerImpl loggerImpl;
+	
 	private static String beforeLogTemplate =
             "command executing...\n"+
-               "\t\tcommand = {0}\n "+
-               "\t\trequest = {1}";
+               "\t\tcommand = {}\n "+
+               "\t\trequest = {}";
 
    private static String afterLogTemplate =
        "command executed\n" +
-          "\t\tcommand = {0}\n" +
-          "\t\tresponse = {1}";
+          "\t\tcommand = {}\n" +
+          "\t\tresponse = {}";
    
 	@Override
-	public void Intercept(ActionInvocation invocation) throws InstantiationException, IllegalAccessException {
+	public void intercept(ActionInvocation invocation) {
 		try
         {
-			//#TODO 记录请求参数日志
-            invocation.Invoke();
+			loggerImpl.debug(beforeLogTemplate,invocation.getCommand(),invocation.getRequest().toString());
+            invocation.invoke();
         }
         catch (Exception e)
         {
-        	//#TODO 记录错误日志
-            throw e;
+        	loggerImpl.error("LogInterceptor intercept error.",e);
+        	throw e;
         }
-		//#TODO 记录响应错误日志
+		loggerImpl.debug(afterLogTemplate,invocation.getCommand(),invocation.getResponse().toString());
 	}
 }

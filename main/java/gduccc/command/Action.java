@@ -6,7 +6,7 @@ public interface Action {
 	 * @param request
 	 * @return
 	 */
-    Object DoExecute(Object request)  throws InstantiationException, IllegalAccessException; 
+    Object doExecute(Object request); 
     
     Class<?> getRequestType();
     Class<?> getResponseType();

@@ -1,5 +1,7 @@
 package gduccc.command.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 	响应参数基类
  * @author rober
@@ -27,4 +29,8 @@ public class Response {
 	public void setSerialNo(String serialNo) {
 		this.serialNo = serialNo;
 	}
+	
+	public String toString(){
+		return JSONObject.toJSONString(this);
+    }
 }

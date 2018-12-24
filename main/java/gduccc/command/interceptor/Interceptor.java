@@ -12,5 +12,5 @@ public interface Interceptor {
 	 * 	拦截
 	 * @param invocation
 	 */
-	void Intercept(ActionInvocation invocation)  throws InstantiationException, IllegalAccessException ;
+	void intercept(ActionInvocation invocation);
 }

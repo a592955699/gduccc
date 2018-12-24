@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import gduccc.command.CommandExecutor;
+import gduccc.command.log.LoggerImpl;
 import gduccc.web.action.DemoAction;
 import gduccc.web.action.Model.DemoActionRequest;
 import gduccc.web.action.Model.DemoActionResponse;
@@ -25,29 +26,20 @@ import gduccc.web.model.TestModel;
 @Controller
 @RequestMapping("test")
 public class TestController {
-	
-	@Autowired
-	public CommandExecutor commandExecutor;
 	@Autowired
 	public ActionServer actonServer;
+	
+	@Autowired
+	public LoggerImpl loggerImpl;
 	
 	@RequestMapping(value = "demo", method = {RequestMethod.POST,RequestMethod.GET})
 	public String Demo()
 	{	
 		DemoActionRequest request = new DemoActionRequest();
-		try {
-			DemoActionResponse response = actonServer.DemoAction(request);
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
+		DemoActionResponse response = actonServer.DemoAction(request);
 		DemoActionRequest request2 = new DemoActionRequest();
-		try {
-			DemoActionResponse response2 = commandExecutor.Process("DemoAction", request2);
-		} catch (InstantiationException | IllegalAccessException e) {
-			// TODO 自动生成的 catch 块
-			e.printStackTrace();
-		}
+		request2.setSessionId("abc");
+		DemoActionResponse response2 = actonServer.DemoAction(request2);
 		return "test/demo";
 	}
 }

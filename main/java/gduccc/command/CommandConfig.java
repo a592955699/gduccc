@@ -11,19 +11,6 @@ import gduccc.command.interceptor.Interceptor;
  *
  */
 public class CommandConfig {
-	/**
-	 * 	增加一个拦截器
-	 * @param interceptor
-	 */
-	public void AddInterceptor(Interceptor interceptor)
-    {
-        if (interceptors == null)
-        {
-            interceptors = new EnumeratorList<Interceptor>();
-        }
-        interceptors.add(interceptor);
-    }
-	
 	private Action action;
     private EnumeratorList<Interceptor> interceptors;
 	public Action getAction() {
@@ -38,4 +25,17 @@ public class CommandConfig {
 	public void setInterceptors(EnumeratorList<Interceptor> interceptors) {
 		this.interceptors = interceptors;
 	}      
+
+	/**
+	 * 	增加一个拦截器
+	 * @param interceptor
+	 */
+	public void addInterceptor(Interceptor interceptor)
+    {
+        if (interceptors == null)
+        {
+            interceptors = new EnumeratorList<Interceptor>();
+        }
+        interceptors.add(interceptor);
+    }
 }

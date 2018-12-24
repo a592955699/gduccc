@@ -11,21 +11,9 @@ import gduccc.command.interceptor.Interceptor;
  *
  */
 public abstract class CommandFilterInterceptor implements Interceptor {
-	public abstract void Intercept(ActionInvocation invocation)  throws InstantiationException, IllegalAccessException;
 	
-	public Boolean ApplyInterceptor(String command)
-    {
-        if (incluedCommands != null)
-        {
-            return incluedCommands.contains(command);
-        }
-        if (excludeCommands != null)
-        {
-            return !excludeCommands.contains(command);
-        }
-        return true;
-    }
-	
+	private Set<String> incluedCommands;
+	private Set<String> excludeCommands;
 	public Set<String> getIncluedCommands() {
 		return incluedCommands;
 	}
@@ -38,6 +26,26 @@ public abstract class CommandFilterInterceptor implements Interceptor {
 	public void setExcludeCommands(Set<String> excludeCommands) {
 		this.excludeCommands = excludeCommands;
 	}
-	private Set<String> incluedCommands;
-	private Set<String> excludeCommands;
+
+	/**
+	 * 	执行拦截
+	 */
+	public abstract void intercept(ActionInvocation invocation);
+	/**
+	 *   	是否应用此拦截器
+	 * @param command
+	 * @return
+	 */
+	public Boolean applyInterceptor(String command)
+    {
+        if (incluedCommands != null)
+        {
+            return incluedCommands.contains(command);
+        }
+        if (excludeCommands != null)
+        {
+            return !excludeCommands.contains(command);
+        }
+        return true;
+    }
 }

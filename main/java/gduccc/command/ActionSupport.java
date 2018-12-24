@@ -14,10 +14,13 @@ public abstract class ActionSupport<IN extends Request, OUT extends Response> im
      * @throws IllegalAccessException 
      * @throws InstantiationException 
      */
-    public abstract OUT Execute(IN request) throws InstantiationException, IllegalAccessException;
+    public abstract OUT execute(IN request);
 	
-	public Object DoExecute(Object request) throws InstantiationException, IllegalAccessException {
-		return Execute((IN)request);
+	public Object doExecute(Object request) {
+		IN req =(IN)request;
+		OUT resonse = execute(req);
+		resonse.setSerialNo(req.getSerialNo());
+		return resonse;
 	}
 	
 	@Override

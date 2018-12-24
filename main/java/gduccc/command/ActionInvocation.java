@@ -15,31 +15,12 @@ import gduccc.command.interceptor.Interceptor;
  *
  */
 public class ActionInvocation {
-	/**
-	 * 	完成调用
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 */
-	public void Invoke() throws InstantiationException, IllegalAccessException
-    {
-		EnumeratorList<Interceptor> iterator = this.getInterceptors();
-        if (iterator.moveNext()) {
-        	Interceptor interceptor = iterator.getCurrent();
-            interceptor.Intercept(this);
-        }
-        else
-        {
-        	response = action.DoExecute(request);
-        }
-    }
-	
 	private String command;
 	private Action action;
 	private Object request;
 	private Object response;
  	private CommandConfig commandConfig;
  	private EnumeratorList<Interceptor> interceptors;
-     
 	public String getCommand() {
 		return command;
 	}
@@ -80,4 +61,22 @@ public class ActionInvocation {
 	public void setInterceptors(EnumeratorList<Interceptor> interceptors) {
 		this.interceptors = interceptors;
 	}
+	
+	/**
+	 * 	完成调用
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
+	 */
+	public void invoke()
+    {
+		EnumeratorList<Interceptor> iterator = this.getInterceptors();
+        if (iterator.moveNext()) {
+        	Interceptor interceptor = iterator.getCurrent();
+            interceptor.intercept(this);
+        }
+        else
+        {
+        	response = action.doExecute(request);
+        }
+    }
 }

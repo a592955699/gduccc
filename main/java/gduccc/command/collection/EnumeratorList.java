@@ -23,13 +23,13 @@ implements IEnumerator<T> {
 		super(c);  
 	}
 
-	private int currentIndex=-1;
+	private int currentIndex=0;
 	
 	@Override
 	public T getCurrent() {
-		if(size()>0 && currentIndex<size())
+		if(size()>0 && currentIndex<=size())
 		{
-			return get(currentIndex);
+			return get(currentIndex-1);
 		}
 		else
 		{
@@ -40,7 +40,7 @@ implements IEnumerator<T> {
 	@Override
 	public Boolean moveNext() {
 		
-		if(size()>0&& currentIndex+1<size())
+		if(size()>0&& currentIndex+1<=size())
 		{
 			currentIndex++;
 			return true;
@@ -53,7 +53,7 @@ implements IEnumerator<T> {
 
 	@Override
 	public void reset() {
-		currentIndex=-1;
+		currentIndex=0;
 		// TODO 自动生成的方法存根
 	}
 }

@@ -11,6 +11,20 @@
 		<property name="componentScan" value="gduccc.web.action"></property>
 		<property name="interceptors">
 			<list>
+			    <bean class="gduccc.command.interceptor.LogInterceptor">
+					<!-- <property name="incluedCommands">
+						<set>
+							
+							<value>DemoAction</value>
+							
+						</set>
+					</property>
+					<property name="excludeCommands">
+						<set>
+						</set>
+					</property>
+					 -->
+				</bean>
 				<bean class="gduccc.web.interceptor.SessionBindInterceptor">
 					<property name="incluedCommands">
 						<set>
@@ -22,7 +36,7 @@
 							<value></value>
 						</set>
 					</property>
-				</bean>
+				</bean>				
 			</list>
 		</property>
 	</bean>

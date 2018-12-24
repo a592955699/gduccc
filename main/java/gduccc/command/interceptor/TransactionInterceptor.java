@@ -8,11 +8,11 @@ public abstract class TransactionInterceptor extends CommandFilterInterceptor{
 
 	
 	@Override
-	public void Intercept(ActionInvocation invocation) throws InstantiationException, IllegalAccessException {
+	public void intercept(ActionInvocation invocation) {
 		try
         {
 			//#TODO 开启事物
-            invocation.Invoke();
+            invocation.invoke();
             //#TODO 提交事物
         }
         catch (Exception e)

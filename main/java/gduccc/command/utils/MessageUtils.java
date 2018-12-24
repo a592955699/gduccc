@@ -9,24 +9,39 @@ import gduccc.command.model.Response;
 
 public class MessageUtils extends  CommandResponseCodes{
 	
-	public static Response SafeGetResponse(ActionInvocation invocation) throws InstantiationException, IllegalAccessException
+	public static Response SafeGetResponse(ActionInvocation invocation)
 	{
 		Response response = (Response)invocation.getResponse() ;
 		if (response != null) return response;
 		
 		Class<?> responseType = invocation.getAction().getResponseType();  
-		response = (Response)responseType.newInstance(); 
+		try {
+			response = (Response)responseType.newInstance();
+			Request req = (Request)invocation.getRequest();			
+			response.setSerialNo(req.getSerialNo());
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			throw new RuntimeException("Response newInstance error.");
+		} 
 		return response;
 	}
 	
-	public static <T extends Response> T SafeGetResponse(Class<? extends Response> clzz) throws InstantiationException, IllegalAccessException
+	/*public static <T extends Response> T SafeGetResponse(Class<? extends Response> clzz)
 	{
 		ParameterizedType type = (ParameterizedType)clzz.getGenericSuperclass();
         Class classT = (Class)type.getActualTypeArguments()[0];//<T>
         
-        T rsp = (T)classT.newInstance();
+        T rsp;
+		try {
+			rsp = (T)classT.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			// TODO 自动生成的 catch 块
+			e.printStackTrace();
+			throw new RuntimeException("Response newInstance error.");
+		}
         return rsp;
-	}
+	}*/
     /**
      *	 获取请求消息的 SessionId
      * @param message
@@ -74,6 +89,7 @@ public class MessageUtils extends  CommandResponseCodes{
 			} catch (Exception e) {
 				// TODO 自动生成的 catch 块
 				e.printStackTrace();
+				throw new RuntimeException("Response newInstance error.");
 			}
         }
         response.setCode(code); 

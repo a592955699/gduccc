@@ -12,6 +12,6 @@ public class SessionBindInterceptor extends AuthorityInterceptor{
 	protected Boolean IsAuthoritied(ActionInvocation invocation) {
 		//#TODO 添加session 验证机制
 		String sessionId = MessageUtils.GetSessionId(invocation.getRequest());
-		return sessionId == null || sessionId.isEmpty();
+		return sessionId != null && !sessionId.isEmpty();
 	}  
 }
